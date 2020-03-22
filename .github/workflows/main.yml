@@ -19,18 +19,12 @@ jobs:
         ref: ${{ github.event.pull_request.base.sha }}
     - uses: jakejarvis/hugo-build-action@master
       with:
-        args: -d ../build/base
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-    - uses: jakejarvis/hugo-build-action@master
-      with:
-        args: -d ../build/head
+        args: -d build/base
     - id: diffpages
       uses: ssowonny/diff-pages-action@v1.0.0-rc.0
       with:
-        base-path: '../build/base'
-        head-path: '../build/head'
+        base-path: 'build/base'
+        head-path: 'build/base'
     # This example step is for uploading the result as an artifact. The result or
     # the artifact can be uploaded to the pull request comments, Amazon S3, or
     # any place according to the github action settings.
