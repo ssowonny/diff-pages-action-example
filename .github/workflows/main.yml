@@ -27,7 +27,7 @@ jobs:
       with:
         args: -d build/head
     - id: diffpages
-      uses: ssowonny/diff-pages-action@v1
+      uses: ssowonny/diff-pages-action@v1.0.0-rc.0
       with:
         base-path: 'build/base'
         head-path: 'build/head'
