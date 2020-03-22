@@ -1,0 +1,40 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request 
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.base.sha }}
+    - uses: jakejarvis/hugo-build-action@master
+      with:
+        args: -d build/base
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: jakejarvis/hugo-build-action@master
+      with:
+        args: -d build/head
+    - id: diffpages
+      uses: ssowonny/diff-pages-action@v1
+      with:
+        base-path: 'build/base'
+        head-path: 'build/head'
+    # This example step is for uploading the result as an artifact. The result or
+    # the artifact can be uploaded to the pull request comments, Amazon S3, or
+    # any place according to the github action settings.
+    - uses: actions/upload-artifact@v1
+      with:
+        name: diff-pages-artifact
+        path: '${{ steps.diffpages.outputs.path }}'
