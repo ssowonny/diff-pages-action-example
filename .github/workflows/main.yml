@@ -33,6 +33,7 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         submodules: true
+        clean: false
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
