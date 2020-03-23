@@ -17,14 +17,12 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.base.sha }}
+        submodules: true
 
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
         hugo-version: '0.68.0'
-    - name: Build
-      run: hugo -d build/base
-    - run: ls -lR
 
     - id: diffpages
       uses: ssowonny/diff-pages-action@master
