@@ -56,3 +56,12 @@ jobs:
       with:
         name: diff-pages-artifact
         path: '${{ steps.diffpages.outputs.path }}'
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: base
+        path: 'build/base'
+    - uses: actions/upload-artifact@v1
+      with:
+        name: head
+        path: 'build/head'
