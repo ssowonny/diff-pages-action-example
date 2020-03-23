@@ -24,6 +24,7 @@ jobs:
         hugo-version: '0.68.0'
     - name: Build
       run: hugo -d build/base
+    - run: ls -lR
 
     - id: diffpages
       uses: ssowonny/diff-pages-action@master
