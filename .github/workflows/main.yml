@@ -14,11 +14,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
+    # Build the PR's base branch files.
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.base.sha }}
         submodules: true
-
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
@@ -27,11 +28,26 @@ jobs:
     - name: Build
       run: hugo -d build/base
 
+    # Build the PR's head branch files.
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        submodules: true
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: '0.68.0'
+        extended: true
+    - name: Build
+      run: hugo -d build/head
+
+    # Capture page differences.
     - id: diffpages
       uses: ssowonny/diff-pages-action@master
       with:
         base-path: 'build/base'
-        head-path: 'build/base'
+        head-path: 'build/head'
+
     # This example step is for uploading the result as an artifact. The result or
     # the artifact can be uploaded to the pull request comments, Amazon S3, or
     # any place according to the github action settings.
