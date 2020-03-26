@@ -16,3 +16,7 @@ name = "Sungwon Lee"
         icon = "envelope"
         title = "E-mail"
         url = "mailto:ssowonny@gmail.com"
+    [params.colors]
+        background = "#ec7a1c"
+        foreground = "#edf7ff"
+        hover = "#ffba82"
